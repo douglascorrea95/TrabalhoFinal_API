@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.serratec.backend.projetoFinal.model.Endereco;
+
 
 
 @Entity
@@ -42,7 +44,7 @@ public class Cliente {
 
 	@Column(name = "cliente_dt_dataNascimento")
 	@NotNull
-	private LocalDate datanascimento;
+	private LocalDate dataNascimento;
 
 	@Column(name = "cliente_tx_telefone")
 	@NotNull
@@ -50,9 +52,14 @@ public class Cliente {
 	
 	@Column(name = "cliente_tx_telefoneSec")
 	private String telefoneSec;
+	
+	@OneToMany(mappedBy = "clienteEndereco")
+	private List<Endereco> listaEndereco;
 
 	@OneToMany(mappedBy="cliente")
 	private List<Pedido> listaPedidos;
+	
+	
 	
 	// Constructor
 	public Cliente() {
@@ -99,12 +106,12 @@ public class Cliente {
 		this.cpfCliente = cpfCliente;
 	}
 
-	public LocalDate getDatanascimento() {
-		return datanascimento;
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setDatanascimento(LocalDate datanascimento) {
-		this.datanascimento = datanascimento;
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getTelefoneCliente() {
