@@ -12,7 +12,7 @@ public class ClienteDTO implements Serializable{
 		private String clienteUsuario;
 		private String emailCliente;
 		private String cpfCliente;
-		private LocalDate datanascimento;
+		private LocalDate dataNascimento;
 		private String telefoneCliente;
 		private String telefoneSec;
 
@@ -61,12 +61,12 @@ public class ClienteDTO implements Serializable{
 			this.cpfCliente = cpfCliente;
 		}
 
-		public LocalDate getDatanascimento() {
-			return datanascimento;
+		public LocalDate getDataNascimento() {
+			return dataNascimento;
 		}
 
-		public void setDatanascimento(LocalDate datanascimento) {
-			this.datanascimento = datanascimento;
+		public void setDataNascimento(LocalDate dataNascimento) {
+			this.dataNascimento = dataNascimento;
 		}
 
 		public String getTelefoneCliente() {

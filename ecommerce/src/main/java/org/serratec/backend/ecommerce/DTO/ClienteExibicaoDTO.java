@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.serratec.backend.ecommerce.model.Endereco;
+
 
 
 public class ClienteExibicaoDTO implements Serializable{
@@ -15,10 +17,11 @@ public class ClienteExibicaoDTO implements Serializable{
 	private String clienteUsuario;
 	private String emailCliente;
 	private String cpfCliente;
-	private LocalDate datanascimento;
+	private LocalDate dataNascimento;
 	private String telefoneCliente;
 	private String telefoneSec;
 	private List<Pedido> listaPedidos;
+	private List<Endereco> listaEndereco;
 	
 	// Constructor
 	public ClienteExibicaoDTO() {}
@@ -64,12 +67,12 @@ public class ClienteExibicaoDTO implements Serializable{
 		this.cpfCliente = cpfCliente;
 	}
 
-	public LocalDate getDatanascimento() {
-		return datanascimento;
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setDatanascimento(LocalDate datanascimento) {
-		this.datanascimento = datanascimento;
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getTelefoneCliente() {
