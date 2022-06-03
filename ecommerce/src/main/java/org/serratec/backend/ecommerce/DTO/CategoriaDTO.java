@@ -5,6 +5,7 @@ public class CategoriaDTO {
 	private Integer idCategoria;
 	private String nomeCategoria;
 	private String descricaoCategoria;
+	
 
 	public CategoriaDTO(){}
 
@@ -32,7 +33,7 @@ public class CategoriaDTO {
 	public void setDescricaoCategoria(String descricaoCategoria) {
 		this.descricaoCategoria = descricaoCategoria;
 	}
-	
+
 	
 	
 }
