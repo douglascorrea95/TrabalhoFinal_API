@@ -1,38 +1,24 @@
 package org.serratec.backend.ecommerce.DTO;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
-public class ProdutoDTO {
-	
-	
+import org.serratec.backend.ecommerce.model.Movimentacao;
+
+
+public class ProdutoExibicaoDTO {
 	private Integer idProduto;
 	private String nomeProduto;
 	private String descricaoProduto;
 	private Double valorUnitario;
 	private LocalDate dataValidade;
-	private Integer quantidadeEmEstoque;
-	private String peridoDeValidade;
+	private Integer quantidadeEstoque;
 	private Integer idCategoria;
-	private Integer idFuncionario;
+	private List<Movimentacao> listaVendas;
 	
 	
-	public ProdutoDTO() {}
-	
-	public Integer getIdFuncionario() {
-		return idFuncionario;
-	}
-
-	public void setIdFuncionario(Integer idFuncionario) {
-		this.idFuncionario = idFuncionario;
-	}
-
-	public Integer getIdCategoria() {
-		return idCategoria;
-	}
-
-	public void setIdCategoria(Integer idCategoria) {
-		this.idCategoria = idCategoria;
+	public ProdutoExibicaoDTO() {
+		
 	}
 
 
@@ -71,39 +57,48 @@ public class ProdutoDTO {
 		return valorUnitario;
 	}
 
+
 	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
+
 
 	public LocalDate getDataValidade() {
 		return dataValidade;
 	}
 
+
 	public void setDataValidade(LocalDate dataValidade) {
 		this.dataValidade = dataValidade;
 	}
 
-	public Integer getQuantidadeEmEstoque() {
-		return quantidadeEmEstoque;
-	}
 
-	public void setQuantidadeEmEstoque(Integer quantidadeEmEstoque) {
-		this.quantidadeEmEstoque = quantidadeEmEstoque;
-	}
-
-	public String getPeridoDeValidade() {
-		return peridoDeValidade;
+	public Integer getQuantidadeEstoque() {
+		return quantidadeEstoque;
 	}
 
 
-	public void setPeridoDeValidade(String peridoDeValidade) {
-		this.peridoDeValidade = peridoDeValidade;
+	public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
 	}
 
 
-	
-	
-	
+	public Integer getIdCategoria() {
+		return idCategoria;
+	}
 
+
+	public void setIdCategoria(Integer idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
+
+	public List<Movimentacao> getListaVendas() {
+		return listaVendas;
+	}
+
+
+	public void setListaVendas(List<Movimentacao> listaVendas) {
+		this.listaVendas = listaVendas;
+	}
 }
-	

@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.serratec.backend.ecommerce.DTO.ClienteDTO;
 import org.serratec.backend.ecommerce.DTO.ClienteExibicaoDTO;
+import org.serratec.backend.ecommerce.exception.ClienteException;
 import org.serratec.backend.ecommerce.service.ClienteService;
-import org.serratec.backend.projetoFinal.exception.ClienteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

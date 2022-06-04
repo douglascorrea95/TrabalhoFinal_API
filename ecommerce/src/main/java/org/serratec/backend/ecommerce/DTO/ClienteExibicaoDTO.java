@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.serratec.backend.ecommerce.model.Endereco;
+import org.serratec.backend.ecommerce.model.Movimentacao;
 
 
 
@@ -20,7 +21,7 @@ public class ClienteExibicaoDTO implements Serializable{
 	private LocalDate dataNascimento;
 	private String telefoneCliente;
 	private String telefoneSec;
-	private List<Pedido> listaPedidos;
+	private List<Movimentacao> listaPedidos;
 	private List<Endereco> listaEndereco;
 	
 	// Constructor
@@ -91,11 +92,21 @@ public class ClienteExibicaoDTO implements Serializable{
 		this.telefoneSec = telefoneSec;
 	}
 
-	public List<Pedido> getListaPedidos() {
+	public List<Movimentacao> getListaPedidos() {
 		return listaPedidos;
 	}
 
-	public void setListaPedidos(List<Pedido> listaPedidos) {
+	public void setListaPedidos(List<Movimentacao> listaPedidos) {
 		this.listaPedidos = listaPedidos;
 	}
+
+	public List<Endereco> getListaEndereco() {
+		return listaEndereco;
+	}
+
+	public void setListaEndereco(List<Endereco> listaEndereco) {
+		this.listaEndereco = listaEndereco;
+	}
+
+	
 }

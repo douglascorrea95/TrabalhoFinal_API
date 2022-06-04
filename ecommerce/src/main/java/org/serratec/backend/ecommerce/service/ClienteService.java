@@ -6,9 +6,9 @@ import java.util.Optional;
 
 import org.serratec.backend.ecommerce.DTO.ClienteDTO;
 import org.serratec.backend.ecommerce.DTO.ClienteExibicaoDTO;
+import org.serratec.backend.ecommerce.exception.ClienteException;
 import org.serratec.backend.ecommerce.model.Cliente;
 import org.serratec.backend.ecommerce.repository.ClienteRepository;
-import org.serratec.backend.projetoFinal.exception.ClienteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -116,7 +116,7 @@ public class ClienteService {
 	}
 
 	// Atualizar
-	public String atualizar(Integer idCliente, ClienteDTO clienteDTO) {
+	public String atualizar(Integer idCliente, ClienteDTO clienteDTO) throws ClienteException {
 
 		Optional<Cliente> cliente = clienteRepository.findById(idCliente);
 		Cliente clienteNoBanco = new Cliente();

@@ -12,8 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.serratec.backend.projetoFinal.model.Endereco;
-
 
 
 @Entity
@@ -57,7 +55,7 @@ public class Cliente {
 	private List<Endereco> listaEndereco;
 
 	@OneToMany(mappedBy="cliente")
-	private List<Pedido> listaPedidos;
+	private List<Movimentacao> listaPedidos;
 	
 	
 	
@@ -129,4 +127,22 @@ public class Cliente {
 	public void setTelefoneSec(String telefoneSec) {
 		this.telefoneSec = telefoneSec;
 	}
+
+	public List<Endereco> getListaEndereco() {
+		return listaEndereco;
+	}
+
+	public void setListaEndereco(List<Endereco> listaEndereco) {
+		this.listaEndereco = listaEndereco;
+	}
+
+	public List<Movimentacao> getListaPedidos() {
+		return listaPedidos;
+	}
+
+	public void setListaPedidos(List<Movimentacao> listaPedidos) {
+		this.listaPedidos = listaPedidos;
+	}
+	
+	
 }
