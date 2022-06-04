@@ -3,8 +3,8 @@ package org.serratec.backend.ecommerce.controller;
 import java.util.List;
 
 import org.serratec.backend.ecommerce.DTO.EnderecoDTO;
+import org.serratec.backend.ecommerce.exception.EnderecoException;
 import org.serratec.backend.ecommerce.service.EnderecoService;
-import org.serratec.backend.projetoFinal.exception.EnderecoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

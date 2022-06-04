@@ -3,7 +3,9 @@ package org.serratec.backend.ecommerce.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.serratec.backend.ecommerce.DTO.EnderecoDTO;
+import org.serratec.backend.ecommerce.exception.EnderecoException;
 import org.serratec.backend.ecommerce.model.Endereco;
 import org.serratec.backend.ecommerce.repository.ClienteRepository;
 import org.serratec.backend.ecommerce.repository.EnderecoRepository;
