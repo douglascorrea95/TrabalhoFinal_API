@@ -2,7 +2,10 @@ package org.serratec.backend.ecommerce.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.serratec.backend.ecommerce.DTO.MovimentacaoDTO;
+import org.serratec.backend.ecommerce.exception.EmailException;
 import org.serratec.backend.ecommerce.exception.MovimentacaoException;
 import org.serratec.backend.ecommerce.service.MovimentacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,7 @@ public class MovimentacaoController {
 	
 
 	@PostMapping("/salvar")
-	public ResponseEntity<String> salvarMovimentacao(@RequestBody MovimentacaoDTO movimentacaoDTO) throws MovimentacaoException{
+	public ResponseEntity<String> salvarMovimentacao(@RequestBody MovimentacaoDTO movimentacaoDTO) throws MovimentacaoException, EmailException, MessagingException{
 		return ResponseEntity.ok(movimentacaoService.salvarMovimentacao(movimentacaoDTO));
 	}
 }

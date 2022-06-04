@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+
 import org.serratec.backend.ecommerce.DTO.MovimentacaoDTO;
 import org.serratec.backend.ecommerce.DTO.MovimentacaoProdutoDTO;
+import org.serratec.backend.ecommerce.exception.EmailException;
 import org.serratec.backend.ecommerce.exception.MovimentacaoException;
 import org.serratec.backend.ecommerce.model.Movimentacao;
 import org.serratec.backend.ecommerce.repository.ClienteRepository;
@@ -25,6 +28,9 @@ public class MovimentacaoService {
 	
 	@Autowired
 	ProdutoRepository produtoRepository;
+	
+	@Autowired
+	EmailService emailService;
 
 	//camada DTO
 		public MovimentacaoDTO modelToDTO(Movimentacao movimentacao, MovimentacaoDTO movimentacaoDTO) {
@@ -98,7 +104,7 @@ public class MovimentacaoService {
 		}
 		
 		//salvar uma movimentacao		
-		public String salvarMovimentacao(MovimentacaoDTO movimentacaoDTO) throws MovimentacaoException {
+		public String salvarMovimentacao(MovimentacaoDTO movimentacaoDTO) throws MovimentacaoException, EmailException, MessagingException {
 					
 			for (MovimentacaoProdutoDTO movimentacaoProdutoDTO : movimentacaoDTO.getListaProduto()) {
 				Movimentacao movimentacao = new Movimentacao();			
@@ -114,7 +120,7 @@ public class MovimentacaoService {
 				movimentacaoRepository.save(movimentacao);
 						
 			}	
-					
+			emailService.enviarEmail(movimentacaoDTO);		
 			return "Movimentacao salva com sucesso";
 					
 		}

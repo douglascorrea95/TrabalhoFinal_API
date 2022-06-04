@@ -75,7 +75,7 @@ public class FuncionarioService {
 			modelParaExibicao(fcExib, fc);
 			return fcExib;
 		}
-		throw  new FuncionarioException("Funcionário não encontrado com id informado");
+		throw new FuncionarioException("Funcionário não encontrado com id informado");
 	}
 		
 	public String atualizar(Integer idFuncionario, FuncionarioDTO funcionarioDTO) throws FuncionarioException {
