@@ -3,6 +3,7 @@ package org.serratec.backend.ecommerce.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,10 +52,10 @@ public class Cliente {
 	@Column(name = "cliente_tx_telefoneSec")
 	private String telefoneSec;
 	
-	@OneToMany(mappedBy = "clienteEndereco")
+	@OneToMany(mappedBy = "clienteEndereco", cascade = CascadeType.REMOVE)
 	private List<Endereco> listaEndereco;
 
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy="cliente", cascade = CascadeType.REMOVE)
 	private List<Movimentacao> listaPedidos;
 	
 	

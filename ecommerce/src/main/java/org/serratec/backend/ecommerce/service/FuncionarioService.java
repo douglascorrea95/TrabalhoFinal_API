@@ -52,16 +52,16 @@ public class FuncionarioService {
 		return " Funcionário criado com sucesso! ";
 	}
 	
-	public List<FuncionarioExibicaoDTO> listarFuncionario() {
+	public List<FuncionarioDTO> listarFuncionario() {
 		List<Funcionario> listaFunc = funcionarioRepository.findAll();
-		List<FuncionarioExibicaoDTO> listaFuncExib = new ArrayList<>();
+		List<FuncionarioDTO> listaFuncDTO = new ArrayList<>();
 		
 		for(Funcionario func : listaFunc) {
-			FuncionarioExibicaoDTO funcExib = new FuncionarioExibicaoDTO();
-			modelParaExibicao(funcExib, func);
-			listaFuncExib.add(funcExib);
+			FuncionarioDTO funcDTO = new FuncionarioDTO();
+			modelDto(func, funcDTO);
+			listaFuncDTO.add(funcDTO);
 		}
-		return listaFuncExib;
+		return listaFuncDTO;
 			
 		
 	}
@@ -75,7 +75,7 @@ public class FuncionarioService {
 			modelParaExibicao(fcExib, fc);
 			return fcExib;
 		}
-		throw  new FuncionarioException("Funcionário não encontrado com id informado");
+		throw new FuncionarioException("Funcionário não encontrado com id informado");
 	}
 		
 	public String atualizar(Integer idFuncionario, FuncionarioDTO funcionarioDTO) throws FuncionarioException {

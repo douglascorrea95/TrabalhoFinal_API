@@ -10,6 +10,7 @@ import org.serratec.backend.ecommerce.DTO.RelatorioDTO;
 import org.serratec.backend.ecommerce.exception.ProdutoException;
 import org.serratec.backend.ecommerce.model.Produto;
 import org.serratec.backend.ecommerce.repository.CategoriaRepository;
+import org.serratec.backend.ecommerce.repository.FuncionarioRepository;
 import org.serratec.backend.ecommerce.repository.MovimentacaoRepository;
 import org.serratec.backend.ecommerce.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class ProdutoService {
 	@Autowired
 	MovimentacaoRepository movimentacaoRepository;
 
+	@Autowired
+	FuncionarioRepository funcionarioRepository;
 	
 	//camada DTO
 	public ProdutoDTO modelToDTO(Produto produto, ProdutoDTO produtoDTO) {
@@ -35,23 +38,30 @@ public class ProdutoService {
 		produtoDTO.setNomeProduto(produto.getNomeProduto());
 		produtoDTO.setDescricaoProduto(produto.getDescricaoProduto());
 		produtoDTO.setValorUnitario(produto.getValorUnitario());
-		produtoDTO.setDataValidade(produto.getDataValidadeProduto());;
-		produtoDTO.setQuantidadeEmEstoque(produto.getQuantidadeEmEstoque());;
+		produtoDTO.setDataValidade(produto.getDataValidadeProduto());
+		produtoDTO.setQuantidadeEmEstoque(produto.getQuantidadeEmEstoque());
+		produtoDTO.setPeridoDeGarantia(produto.getPeridoDeGarantia());
 		produtoDTO.setIdCategoria(produto.getCategoria().getIdCategoria());
+		produtoDTO.setIdFuncionario(produto.getFuncionario().getIdFuncionario());
+		
 				
 		return produtoDTO;
 	}
 	
-	public Produto DTOToModel(ProdutoDTO produtoDTO, Produto produto) {
+	public Produto dtoToModel(ProdutoDTO produtoDTO, Produto produto) {
 		
 		produto.setNomeProduto(produtoDTO.getNomeProduto());
 		produto.setDescricaoProduto(produtoDTO.getDescricaoProduto());
 		produto.setValorUnitario(produtoDTO.getValorUnitario());
 		produto.setDataValidadeProduto(produtoDTO.getDataValidade());
 		produto.setQuantidadeEmEstoque(produtoDTO.getQuantidadeEmEstoque());
-		
+		produto.setPeridoDeGarantia(produtoDTO.getPeridoDeGarantia());
 		if(produtoDTO.getIdCategoria() != null) {
 			produto.setCategoria(categoriaRepository.findById(produtoDTO.getIdCategoria()).get());
+		}
+		
+		if(produtoDTO.getIdFuncionario() != null) {
+			produto.setFuncionario(funcionarioRepository.findById(produtoDTO.getIdFuncionario()).get());
 		}
 				
 		return produto;
@@ -65,14 +75,16 @@ public class ProdutoService {
 		produtoExibicaoDTO.setValorUnitario(produto.getValorUnitario());
 		produtoExibicaoDTO.setDataValidade(produto.getDataValidadeProduto());
 		produtoExibicaoDTO.setQuantidadeEstoque(produto.getQuantidadeEmEstoque());
-		produtoExibicaoDTO.setListaVendas(produto.getListaVendas());
+		produtoExibicaoDTO.setPeridoDeGarantia(produto.getPeridoDeGarantia());
 		produtoExibicaoDTO.setIdCategoria(produto.getCategoria().getIdCategoria());
+		produtoExibicaoDTO.setIdFuncionario(produto.getFuncionario().getIdFuncionario());
+		produtoExibicaoDTO.setListaVendas(produto.getListaVendas());
 		
 		return produtoExibicaoDTO;
 	}
 	
 	
-//	//buscar lista de produtos
+	//buscar lista de produtos
 		public List<ProdutoDTO> buscarTodos(){
 			List<Produto> listaProdutos = produtoRepository.findAll();
 			List<ProdutoDTO> listaProdutosDTO = new ArrayList<>();
@@ -99,19 +111,33 @@ public class ProdutoService {
 				return produtoExibicaoDTO;
 			}
 			
-			throw new ProdutoException("O produto com id " + produtoExibicaoDTO.getIdProduto() + " não foi encontrado.");
+			throw new ProdutoException("O produto com id informado não foi encontrado.");
 			
 		}
 		
-//		//salvar um produto
+		//salvar um produto
 		public String salvarProduto(ProdutoDTO produtoDTO) {
 			Produto produto = new Produto();
-			DTOToModel(produtoDTO, produto);
+			dtoToModel(produtoDTO, produto);
 			produtoRepository.save(produto);
 			
 			return "Produto salvo com sucesso com id " + produto.getIdProduto();
 		}
-//	
+	
+		
+		//salvar lista de produtos
+		public String salvarListaProdutos(List<ProdutoDTO> listaProdutoDTO) {
+			List<Produto> listaProduto = new ArrayList<>();
+			
+			for(ProdutoDTO produtoDTO : listaProdutoDTO) {
+				Produto produto = new Produto();
+				dtoToModel(produtoDTO, produto);
+				listaProduto.add(produto);
+			}
+			
+			produtoRepository.saveAll(listaProduto);
+			return "Todos os produtos foram salvos!";
+		}
 		
 		//editar um produto
 		public String editarProduto(Integer idProduto, ProdutoDTO produtoDTO) throws ProdutoException {
@@ -128,7 +154,7 @@ public class ProdutoService {
 					produto.setDescricaoProduto(produtoDTO.getDescricaoProduto());
 				}
 				
-				if(produtoDTO.getValorUnitario() != null) {
+				if(produtoDTO.getValorUnitario() != 0) {
 					produto.setValorUnitario(produtoDTO.getValorUnitario());
 				}
 				
@@ -136,8 +162,20 @@ public class ProdutoService {
 					produto.setDataValidadeProduto(produtoDTO.getDataValidade());
 				}
 				
-				if(produtoDTO.getQuantidadeEmEstoque() != 0) {
+				if(produtoDTO.getQuantidadeEmEstoque() != null) {
 					produto.setQuantidadeEmEstoque(produtoDTO.getQuantidadeEmEstoque());
+				}
+				
+				if(produtoDTO.getPeridoDeGarantia() != null) {
+					produto.setPeridoDeGarantia(produtoDTO.getPeridoDeGarantia());
+				}
+				
+				if(produtoDTO.getIdCategoria() != null) {
+					produto.setCategoria(categoriaRepository.findById(produtoDTO.getIdCategoria()).get());
+				}
+				
+				if(produtoDTO.getIdFuncionario() != null) {
+					produto.setFuncionario(funcionarioRepository.findById(produtoDTO.getIdFuncionario()).get());
 				}
 				
 				produtoRepository.save(produto);

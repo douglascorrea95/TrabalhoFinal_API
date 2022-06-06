@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+
 import org.serratec.backend.ecommerce.DTO.MovimentacaoDTO;
 import org.serratec.backend.ecommerce.DTO.MovimentacaoProdutoDTO;
+import org.serratec.backend.ecommerce.exception.EmailException;
 import org.serratec.backend.ecommerce.exception.MovimentacaoException;
 import org.serratec.backend.ecommerce.model.Movimentacao;
+import org.serratec.backend.ecommerce.model.Produto;
 import org.serratec.backend.ecommerce.repository.ClienteRepository;
 import org.serratec.backend.ecommerce.repository.MovimentacaoRepository;
 import org.serratec.backend.ecommerce.repository.ProdutoRepository;
@@ -25,6 +29,12 @@ public class MovimentacaoService {
 	
 	@Autowired
 	ProdutoRepository produtoRepository;
+	
+	@Autowired
+	ProdutoService produtoService;
+	
+	@Autowired
+	EmailService emailService;
 
 	//camada DTO
 		public MovimentacaoDTO modelToDTO(Movimentacao movimentacao, MovimentacaoDTO movimentacaoDTO) {
@@ -82,11 +92,16 @@ public class MovimentacaoService {
 		}
 		
 		//buscar por nota fiscal
-		public List<MovimentacaoDTO> buscarPorNotaFiscal(String notaFiscal){
+		public List<MovimentacaoDTO> buscarPorNotaFiscal(String notaFiscal) throws MovimentacaoException{
+			
 			List<Movimentacao> listaMovimentacao = movimentacaoRepository.findAll();
 			List<Movimentacao> listaPorNotaFiscal = movimentacaoRepository.findByNotaFiscal(notaFiscal, listaMovimentacao);
 			List<MovimentacaoDTO> listaMovimentacaoDTO = new ArrayList<>();
-					
+			
+			if(listaPorNotaFiscal.isEmpty()) {
+				throw new MovimentacaoException("Nota fiscal não encontrada!");
+			}
+			
 			for (Movimentacao movimentacao : listaPorNotaFiscal) {
 				MovimentacaoDTO movimentacaoDTO = new MovimentacaoDTO();
 				modelToDTO(movimentacao, movimentacaoDTO);
@@ -98,23 +113,28 @@ public class MovimentacaoService {
 		}
 		
 		//salvar uma movimentacao		
-		public String salvarMovimentacao(MovimentacaoDTO movimentacaoDTO) throws MovimentacaoException {
-					
+		public String salvarMovimentacao(MovimentacaoDTO movimentacaoDTO) throws MovimentacaoException, EmailException, MessagingException {
+			
+			
 			for (MovimentacaoProdutoDTO movimentacaoProdutoDTO : movimentacaoDTO.getListaProduto()) {
+					
 				Movimentacao movimentacao = new Movimentacao();			
 				movimentacao.setProduto(produtoRepository.findById(movimentacaoProdutoDTO.getIdProduto()).get());
 				movimentacao.setValorUnitario(movimentacaoProdutoDTO.getValorUnitario());
 				movimentacao.setQuantidadeCompra(movimentacaoProdutoDTO.getQuantidadeCompra());
-						
+									
 				if(movimentacaoProdutoDTO.getQuantidadeCompra() > movimentacao.getProduto().getQuantidadeEmEstoque()) {
 					throw new MovimentacaoException("Falta de estoque!");
+				
 				}
-						
+				
 				DTOToModel(movimentacaoDTO, movimentacao);		
 				movimentacaoRepository.save(movimentacao);
-						
-			}	
-					
+				
+				
+			}
+			
+			emailService.enviarEmail(movimentacaoDTO);		
 			return "Movimentacao salva com sucesso";
 					
 		}

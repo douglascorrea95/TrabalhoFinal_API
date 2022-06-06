@@ -3,6 +3,7 @@ package org.serratec.backend.ecommerce.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Funcionario implements Serializable {
 	@Column(name = "funcionario_num_cpf", unique = true)
 	private String cpfFuncionario;
 
-	@OneToMany(mappedBy = "funcionario")
+	@OneToMany(mappedBy = "funcionario", cascade = CascadeType.REMOVE)
 	private List<Produto> listaDeProdutos;
 
 	public Funcionario() {

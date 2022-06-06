@@ -2,8 +2,9 @@ package org.serratec.backend.ecommerce.controller;
 
 import java.util.List;
 
+
 import org.serratec.backend.ecommerce.DTO.EnderecoDTO;
-import org.serratec.backend.ecommerce.exception.EnderecoException;
+//import org.serratec.backend.ecommerce.cep.CorreiosService;
 import org.serratec.backend.ecommerce.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.linecode.jcep.wsdl.EnderecoERP;
+
 @RestController
 @RequestMapping("/endereco")
 public class EnderecoController {
@@ -24,13 +27,14 @@ public class EnderecoController {
 	@Autowired
 	EnderecoService enderecoService;
 	
+	
 	@PostMapping("/salvar")
 	public ResponseEntity<String> salvar(@RequestBody EnderecoDTO enderecoDTO) {
 		return ResponseEntity.ok(enderecoService.salvar(enderecoDTO));
 	}
 	
 	@GetMapping("/buscar/{idEndereco}")
-	public ResponseEntity<EnderecoDTO> buscarPorId(@PathVariable Integer idEndereco) throws EnderecoException{
+	public ResponseEntity<EnderecoDTO> buscarPorId(@PathVariable Integer idEndereco){
 		return ResponseEntity.ok(enderecoService.buscarPorId(idEndereco));
 	}
 	
@@ -40,13 +44,13 @@ public class EnderecoController {
 	}
 	
 	@PutMapping("/atualizar/{idEndereco}")
-	public ResponseEntity<String> atualizar(@PathVariable Integer idEndereco, @RequestBody EnderecoDTO enderecoDTO) throws EnderecoException{
+	public ResponseEntity<String> atualizar(@PathVariable Integer idEndereco, @RequestBody EnderecoDTO enderecoDTO) {
 		return ResponseEntity.ok(enderecoService.atualizar(idEndereco, enderecoDTO));
 	}
 	
 	@PostMapping("/salvar-lista")
-	public ResponseEntity<Void> salvarLista(@RequestBody List<EnderecoDTO> listaCartaoDTO){
-		enderecoService.salvarListaEndereco(listaCartaoDTO);
+	public ResponseEntity<Void> salvarLista(@RequestBody List<EnderecoDTO> listaEnderecoDTO){
+		enderecoService.salvarListaEndereco(listaEnderecoDTO);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
@@ -55,5 +59,6 @@ public class EnderecoController {
 		enderecoService.deletar(idEndereco);
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
+	
 }
 

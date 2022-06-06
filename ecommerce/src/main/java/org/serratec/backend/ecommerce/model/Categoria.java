@@ -3,6 +3,7 @@ package org.serratec.backend.ecommerce.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +34,7 @@ public class Categoria implements Serializable {
 	@NotNull
 	private String descricaoCategoria;
 	
-	@OneToMany(mappedBy = "categoria")
+	@OneToMany(mappedBy = "categoria",cascade = CascadeType.REMOVE)
 	private List<Produto> listaProduto; 
 	
 	

@@ -12,7 +12,7 @@ public class ProdutoDTO {
 	private Double valorUnitario;
 	private LocalDate dataValidade;
 	private Integer quantidadeEmEstoque;
-	private String peridoDeValidade;
+	private String peridoDeGarantia;
 	private Integer idCategoria;
 	private Integer idFuncionario;
 	
@@ -91,18 +91,14 @@ public class ProdutoDTO {
 		this.quantidadeEmEstoque = quantidadeEmEstoque;
 	}
 
-	public String getPeridoDeValidade() {
-		return peridoDeValidade;
+	public String getPeridoDeGarantia() {
+		return peridoDeGarantia;
 	}
 
-
-	public void setPeridoDeValidade(String peridoDeValidade) {
-		this.peridoDeValidade = peridoDeValidade;
+	public void setPeridoDeGarantia(String peridoDeGarantia) {
+		this.peridoDeGarantia = peridoDeGarantia;
 	}
 
-
-	
-	
 	
 
 }

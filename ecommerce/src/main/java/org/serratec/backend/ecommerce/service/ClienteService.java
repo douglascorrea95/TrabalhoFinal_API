@@ -100,19 +100,19 @@ public class ClienteService {
 	}
 
 	// Buscar Todos
-	public List<ClienteExibicaoDTO> buscarTodos() {
+	public List<ClienteDTO> buscarTodos() {
 		List<Cliente> listaCliente = clienteRepository.findAll();
-		List<ClienteExibicaoDTO> listaClienteExibicao = new ArrayList<>();
+		List<ClienteDTO> listaClienteDTO = new ArrayList<>();
 
 		for (Cliente cliente : listaCliente) {
 
-			ClienteExibicaoDTO clienteExibicaoDTO = new ClienteExibicaoDTO();
+			ClienteDTO clienteDTO = new ClienteDTO();
 
-			modelParaExibicao(clienteExibicaoDTO, cliente);
-			listaClienteExibicao.add(clienteExibicaoDTO);
+			modelParaDTO(cliente, clienteDTO);
+			listaClienteDTO.add(clienteDTO);
 		}
 
-		return listaClienteExibicao;
+		return listaClienteDTO;
 	}
 
 	// Atualizar
