@@ -9,6 +9,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.serratec.backend.ecommerce.DTO.MovimentacaoDTO;
 import org.serratec.backend.ecommerce.DTO.MovimentacaoProdutoDTO;
+import org.serratec.backend.ecommerce.DTO.ProdutoDTO;
 import org.serratec.backend.ecommerce.exception.EmailException;
 import org.serratec.backend.ecommerce.model.Movimentacao;
 import org.serratec.backend.ecommerce.repository.MovimentacaoRepository;
@@ -139,4 +140,41 @@ public class EmailService {
 				throw new EmailException("Houve um erro"+ e.getMessage());
 			}
 		}
+	
+public void emailEstoque(ProdutoDTO produtoDTO) throws EmailException, MessagingException {
+		
+		
+		
+		this.emailSender = javaMailSender();
+		MimeMessage message = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true);
+		
+		try {
+			helper.setFrom("tthurler10@gmail.com");
+			helper.setTo(emailRemetente);
+			
+			helper.setSubject("Estoque");
+			
+			StringBuilder sBuilder = new StringBuilder();
+			sBuilder.append("<html>"
+                    +"<body><img src='https://boards.plus4chan.org/cog/140245391900.jpg' "
+                    +"width='290' border='0' style='padding:22px;'>"
+                    +"<div style='font-family: fantasy;font-size:30px; color:rgb(6, 175, 79); font-weight:bold; border-style: groove; border-left: none; border-right: none; padding-left: 22px;'>"
+                    +"16 BITS</div>"
+                    +"<div style='font-family: monospace; font-size: 15px; color:rgb(0, 0, 0); padding-top: 20px;'>"
+                    +"Produtos em falta: <br/>"
+                    +produtoDTO.getNomeProduto()
+                    +"<br/>"
+                    +"<br/><br/></div>"
+                    +"<div style='color:rgb(169, 166, 166);"
+                    +"font:size 12px;border-top-style:double;border-color:rgb(169, 166, 166);padding-top:5px'>"
+                    +"<i>Att, 16 Bits</i></div>"
+                    +"</body></html>'");
+			helper.setText(sBuilder.toString(),true);
+			
+			emailSender.send(message);
+		}catch (Exception e) {
+			throw new EmailException("Houve um erro"+ e.getMessage());
+		}
+	}
 }

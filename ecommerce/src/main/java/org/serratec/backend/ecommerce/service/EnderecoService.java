@@ -1,29 +1,18 @@
 package org.serratec.backend.ecommerce.service;
 
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
-import java.util.regex.Pattern;
-
-import javax.xml.bind.JAXBElement;
 
 import org.serratec.backend.ecommerce.DTO.EnderecoDTO;
-
 import org.serratec.backend.ecommerce.model.Endereco;
 import org.serratec.backend.ecommerce.repository.ClienteRepository;
 import org.serratec.backend.ecommerce.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.ws.client.core.WebServiceTemplate;
 
-import com.linecode.jcep.wsdl.ConsultaCEP;
-import com.linecode.jcep.wsdl.ConsultaCEPResponse;
-import com.linecode.jcep.wsdl.EnderecoERP;
-import com.linecode.jcep.wsdl.ObjectFactory;
+
+
 
 @Service
 public class EnderecoService {

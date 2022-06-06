@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 
 import org.serratec.backend.ecommerce.DTO.MovimentacaoDTO;
 import org.serratec.backend.ecommerce.DTO.MovimentacaoProdutoDTO;
+import org.serratec.backend.ecommerce.DTO.ProdutoDTO;
 import org.serratec.backend.ecommerce.exception.EmailException;
 import org.serratec.backend.ecommerce.exception.MovimentacaoException;
 import org.serratec.backend.ecommerce.model.Movimentacao;
@@ -112,6 +113,33 @@ public class MovimentacaoService {
 					
 		}
 		
+		public void faltaDeEstoque(MovimentacaoDTO movimentacaoDTO)  {
+			movimentacaoDTO.getListaProduto().forEach(produto -> {
+				
+				Produto produtoEstoque = produtoRepository.findById(produto.getIdProduto()).get();
+				
+				produtoEstoque.setQuantidadeEmEstoque(produtoEstoque.getQuantidadeEmEstoque() - produto.getQuantidadeCompra());
+				produtoRepository.save(produtoEstoque);
+				
+				if(produtoEstoque.getQuantidadeEmEstoque() < 6) {
+					ProdutoDTO produtoDTO = new ProdutoDTO();
+					produtoDTO.setNomeProduto(produtoEstoque.getNomeProduto());
+					
+					try {
+						emailService.emailEstoque(produtoDTO);
+					} catch (EmailException e) {
+					
+						e.printStackTrace();
+					} catch (MessagingException e) {
+						
+						e.printStackTrace();
+					}
+					
+				}
+			});	
+			
+		}
+		
 		//salvar uma movimentacao		
 		public String salvarMovimentacao(MovimentacaoDTO movimentacaoDTO) throws MovimentacaoException, EmailException, MessagingException {
 			
@@ -127,6 +155,7 @@ public class MovimentacaoService {
 					throw new MovimentacaoException("Falta de estoque!");
 				
 				}
+				faltaDeEstoque(movimentacaoDTO);
 				
 				DTOToModel(movimentacaoDTO, movimentacao);		
 				movimentacaoRepository.save(movimentacao);

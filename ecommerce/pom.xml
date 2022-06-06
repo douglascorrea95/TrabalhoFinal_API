@@ -82,6 +82,7 @@
 			<version>0.9.1</version>
 		</dependency>
 		
+		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
@@ -98,10 +99,11 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		-->
 		
 		
 	</dependencies>
-
+<!--
 <profiles>
 		<profile>
 			<id>java17</id>
@@ -117,6 +119,7 @@
 			</dependencies>
 		</profile>
 	</profiles>
+	-->
 
 
 	<build>
@@ -126,6 +129,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			
+			<!--
 			<plugin>
 					<groupId>org.jvnet.jaxb2.maven2</groupId>
 					<artifactId>maven-jaxb2-plugin</artifactId>
@@ -148,7 +152,7 @@
 						</schemas>
 					</configuration>
 			</plugin>
-			
+			-->
 			
 		</plugins>
 	</build>
