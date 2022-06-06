@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,15 +33,19 @@ public class Movimentacao {
 	private Produto produto;
 	
 	@Column(name="movimentacao_valor_unitario")
+	@NotNull
 	private Double valorUnitario;
 	
 	@Column(name="movimentacao_nota_fiscal")
+	@NotNull
 	private String notaFiscal;
 	
 	@Column(name="movimentacao_quantidade_compra")
+	@NotNull
 	private Integer quantidadeCompra;
 	
 	@Column(name="movimentacao_tipo")
+	@NotNull
 	private String tipoMovimentacao;
 	
 		

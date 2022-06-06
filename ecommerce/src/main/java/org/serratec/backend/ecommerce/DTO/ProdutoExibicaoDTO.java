@@ -13,7 +13,9 @@ public class ProdutoExibicaoDTO {
 	private Double valorUnitario;
 	private LocalDate dataValidade;
 	private Integer quantidadeEstoque;
+	private String peridoDeGarantia;
 	private Integer idCategoria;
+	private Integer idFuncionario;
 	private List<Movimentacao> listaVendas;
 	
 	
@@ -90,6 +92,28 @@ public class ProdutoExibicaoDTO {
 
 	public void setIdCategoria(Integer idCategoria) {
 		this.idCategoria = idCategoria;
+	}
+	
+
+
+	public Integer getIdFuncionario() {
+		return idFuncionario;
+	}
+
+
+	public void setIdFuncionario(Integer idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
+
+	
+
+	public String getPeridoDeGarantia() {
+		return peridoDeGarantia;
+	}
+
+
+	public void setPeridoDeGarantia(String peridoDeGarantia) {
+		this.peridoDeGarantia = peridoDeGarantia;
 	}
 
 

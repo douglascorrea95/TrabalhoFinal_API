@@ -3,6 +3,7 @@ package org.serratec.backend.ecommerce.controller;
 import java.util.List;
 
 import org.serratec.backend.ecommerce.DTO.CategoriaDTO;
+import org.serratec.backend.ecommerce.DTO.CategoriaExibicaoDTO;
 import org.serratec.backend.ecommerce.exception.CategoriaException;
 import org.serratec.backend.ecommerce.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class CategoriaController {
 	}
 	
 	@GetMapping("/buscar/{idCategoria}")
-	public ResponseEntity<CategoriaDTO> buscarCategoriaId(@PathVariable Integer idCategoria) throws CategoriaException {
+	public ResponseEntity<CategoriaExibicaoDTO> buscarCategoriaId(@PathVariable Integer idCategoria) throws CategoriaException {
 		return ResponseEntity.ok(categoriaService.buscarPorId(idCategoria));
 	}
 	

@@ -39,7 +39,7 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/lista")
-	public ResponseEntity<List<ClienteExibicaoDTO>> listaTodos(){
+	public ResponseEntity<List<ClienteDTO>> listaTodos(){
 		return ResponseEntity.ok(clienteService.buscarTodos());
 	
 	}

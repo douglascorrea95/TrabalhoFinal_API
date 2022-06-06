@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.serratec.backend.ecommerce.DTO.CategoriaDTO;
+import org.serratec.backend.ecommerce.DTO.CategoriaExibicaoDTO;
 import org.serratec.backend.ecommerce.exception.CategoriaException;
 import org.serratec.backend.ecommerce.model.Categoria;
 import org.serratec.backend.ecommerce.repository.CategoriaRepository;
@@ -37,6 +38,16 @@ public class CategoriaService {
 		return categoriaDTO;
 	}
 	
+	public CategoriaExibicaoDTO modelToExibicao(Categoria categoria, CategoriaExibicaoDTO categoriaExibicaoDTO) {
+		
+		categoriaExibicaoDTO.setIdCategoria(categoria.getIdCategoria());
+		categoriaExibicaoDTO.setNomeCategoria(categoria.getNomeCategoria());
+		categoriaExibicaoDTO.setDescricaoCategoria(categoria.getDescricaoCategoria());
+		categoriaExibicaoDTO.setListaProduto(categoria.getListaProduto());
+		
+		return categoriaExibicaoDTO;
+	}
+	
 	public String salvar(CategoriaDTO categoriaDTO) {
 		Categoria categoria = new Categoria();
 		dtoModel(categoriaDTO, categoria);
@@ -57,13 +68,13 @@ public class CategoriaService {
 		
 	}
 	
-	public CategoriaDTO buscarPorId(Integer idCategoria) throws CategoriaException {
+	public CategoriaExibicaoDTO buscarPorId(Integer idCategoria) throws CategoriaException {
 		Optional<Categoria> categoria = categoriaRepository.findById(idCategoria);
 			Categoria ct = new Categoria();
-			CategoriaDTO ctDto = new CategoriaDTO();
+			CategoriaExibicaoDTO ctDto = new CategoriaExibicaoDTO();
 			if(categoria.isPresent()) {
 				ct = categoria.get();
-				modelDto(ct, ctDto);
+				modelToExibicao(ct, ctDto);
 				return ctDto;
 			}
 			throw new CategoriaException(">> Categoria não encontrada com id informado! <<");

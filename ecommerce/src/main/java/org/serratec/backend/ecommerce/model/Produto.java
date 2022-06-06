@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,8 +51,9 @@ public class Produto implements Serializable{
 	@NotNull
 	private Integer quantidadeEmEstoque;
 	
-	@Column(name="produto_tx_periodo_de_validade")
-	private String peridoDeValidade;
+	@Column(name="produto_tx_periodo_de_garantia")
+	@NotNull
+	private String peridoDeGarantia;
 	
 				
 	@ManyToOne
@@ -64,7 +66,7 @@ public class Produto implements Serializable{
 	@JsonIgnore
 	private Funcionario funcionario;
 	
-	@OneToMany(mappedBy = "produto")
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Movimentacao> listaVendas;
 	
@@ -136,12 +138,14 @@ public class Produto implements Serializable{
 		this.quantidadeEmEstoque = quantidadeEmEstoque;
 	}
 
-	public String getPeridoDeValidade() {
-		return peridoDeValidade;
+
+	public String getPeridoDeGarantia() {
+		return peridoDeGarantia;
 	}
 
-	public void setPeridoDeValidade(String peridoDeValidade) {
-		this.peridoDeValidade = peridoDeValidade;
+
+	public void setPeridoDeGarantia(String peridoDeGarantia) {
+		this.peridoDeGarantia = peridoDeGarantia;
 	}
 
 

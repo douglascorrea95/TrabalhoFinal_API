@@ -2,6 +2,7 @@ package org.serratec.backend.ecommerce.controller;
 
 import java.util.List;
 
+import org.serratec.backend.ecommerce.DTO.CategoriaDTO;
 import org.serratec.backend.ecommerce.DTO.ProdutoDTO;
 import org.serratec.backend.ecommerce.DTO.ProdutoExibicaoDTO;
 import org.serratec.backend.ecommerce.DTO.RelatorioDTO;
@@ -38,6 +39,12 @@ public class ProdutoController {
 	@PostMapping("/salvar")
 	public ResponseEntity<String> salvarProduto(@RequestBody ProdutoDTO produtoDTO){
 		return ResponseEntity.ok(produtoService.salvarProduto(produtoDTO));
+	}
+	
+	@PostMapping("/salvar-lista")
+	public ResponseEntity<String>salvarListaProduto(@RequestBody List<ProdutoDTO> listaPRodutoDTO){
+		return ResponseEntity.ok(produtoService.salvarListaProdutos(listaPRodutoDTO));
+		
 	}
 	
 	@PutMapping("/editar/{idProduto}")

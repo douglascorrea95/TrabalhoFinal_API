@@ -1,16 +1,29 @@
 package org.serratec.backend.ecommerce.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.regex.Pattern;
+
+import javax.xml.bind.JAXBElement;
 
 import org.serratec.backend.ecommerce.DTO.EnderecoDTO;
-import org.serratec.backend.ecommerce.exception.EnderecoException;
+
 import org.serratec.backend.ecommerce.model.Endereco;
 import org.serratec.backend.ecommerce.repository.ClienteRepository;
 import org.serratec.backend.ecommerce.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.ws.client.core.WebServiceTemplate;
+
+import com.linecode.jcep.wsdl.ConsultaCEP;
+import com.linecode.jcep.wsdl.ConsultaCEPResponse;
+import com.linecode.jcep.wsdl.EnderecoERP;
+import com.linecode.jcep.wsdl.ObjectFactory;
 
 @Service
 public class EnderecoService {
@@ -21,7 +34,7 @@ public class EnderecoService {
 	@Autowired
 	ClienteRepository clienteRepository;
 	
-	
+
 	public EnderecoDTO ModelEmDTO(EnderecoDTO enderecoDTO, Endereco endereco) {
 
 		enderecoDTO.setIdEndereco(endereco.getIdEndereco());
@@ -29,6 +42,7 @@ public class EnderecoService {
 		enderecoDTO.setCidade(endereco.getCidade());
 		enderecoDTO.setRua(endereco.getRua());
 		enderecoDTO.setCep(endereco.getCep());
+		enderecoDTO.setIdCliente(endereco.getClienteEndereco().getIdCliente());
 
 		return enderecoDTO;
 	}
@@ -57,16 +71,16 @@ public class EnderecoService {
 
 	}
 
-	public EnderecoDTO buscarPorId(Integer idEndereco) throws EnderecoException {
+	public EnderecoDTO buscarPorId(Integer idEndereco) {
 		Optional<Endereco> endereco = enderecoRepository.findById(idEndereco);
 		Endereco buscarEndereco = new Endereco();
 		EnderecoDTO clienteDTO = new EnderecoDTO();
 		if (endereco.isPresent()) {
 			buscarEndereco = endereco.get();
 			ModelEmDTO(clienteDTO, buscarEndereco);
-			return clienteDTO;
 		}
-		throw new EnderecoException("Endereço com o id informado nao encontrado");
+//		throw new EnderecoException("Endereço com o id informado nao encontrado");
+		return clienteDTO;
 	}
 
 	public List<EnderecoDTO> buscarTodos() {
@@ -83,7 +97,7 @@ public class EnderecoService {
 
 	}
 
-	public String atualizar(Integer idEndereco, EnderecoDTO enderecoDTO) throws EnderecoException {
+	public String atualizar(Integer idEndereco, EnderecoDTO enderecoDTO) {
 		Optional<Endereco> endereco = enderecoRepository.findById(idEndereco);
 		Endereco atualizarEndereco = new Endereco();
 		if (endereco.isPresent()) {
@@ -101,9 +115,9 @@ public class EnderecoService {
 				atualizarEndereco.setRua(enderecoDTO.getRua());
 			}
 			enderecoRepository.save(atualizarEndereco);
-			return "O endereço com o id " + atualizarEndereco.getIdEndereco() + " foi atualizado";
 		}
-		throw new EnderecoException("O endereco nao foi atualizado");
+		return "O endereço com o id " + atualizarEndereco.getIdEndereco() + " foi atualizado";
+//		throw new EnderecoException("O endereco nao foi atualizado");
 	}
 
 	public void salvarListaEndereco(List<EnderecoDTO> listaEnderecoDTO) {
