@@ -68,58 +68,19 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-				
+		</dependency>				
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
 			<version>3.16.0</version>
-		</dependency>
-		
+		</dependency>		
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
-		</dependency>
-		
-		<!--
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		-->
-		
-		
+		</dependency>		
 	</dependencies>
-<!--
-<profiles>
-		<profile>
-			<id>java17</id>
-			<activation>
-				<jdk>[17,)</jdk>
-			</activation>
 
-			<dependencies>
-				<dependency>
-					<groupId>org.glassfish.jaxb</groupId>
-					<artifactId>jaxb-runtime</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
-	-->
 
 
 	<build>
@@ -127,33 +88,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			
-			<!--
-			<plugin>
-					<groupId>org.jvnet.jaxb2.maven2</groupId>
-					<artifactId>maven-jaxb2-plugin</artifactId>
-					<version>0.14.0</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>generate</goal>
-							</goals>
-						</execution>
-					
-					</executions>
-					<configuration>
-						<schemaLanguage>WSDL</schemaLanguage>
-						<generatePackage>com.linecode.jcep.wsdl</generatePackage>
-						<schemas>
-							<schema>
-								<url>https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl</url>
-							</schema>
-						</schemas>
-					</configuration>
-			</plugin>
-			-->
-			
+			</plugin>			
 		</plugins>
 	</build>
 

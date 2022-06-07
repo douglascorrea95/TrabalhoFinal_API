@@ -22,37 +22,41 @@ public class Endereco {
 	@Column(name = "endereco_cd_id")
 	private Integer idEndereco;
 
-	@Column(name = "endereco_tx_estado")
+	@Column(name = "endereco_tx_rua")
 	@NotNull
-	private String estado;
-
+	private String logradouro;
+	
+	@Column(name = "endereco_tx_numero")
+	@NotNull
+	private String numero;
+	
+	@Column(name = "endereco_tx_complemento")
+	@NotNull
+	private String complemento;
+	
+	@Column(name = "endereco_tx_bairro")
+	@NotNull
+	private String bairro;
+	
 	@Column(name = "endereco_tx_cidade")
 	@NotNull
-	private String cidade;
+	private String localidade;
+	
+	@Column(name = "endereco_tx_estado")
+	@NotNull
+	private String uf;
 
 	@Column(name = "endereco_num_cep")
 	@NotNull
-	private Integer cep;
-
-	@Column(name = "endereco_tx_rua")
-	@NotNull
-	private String rua;
+	private String cep;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id", referencedColumnName = "cliente_cd_id")
-	@JsonIgnore
-	private Cliente clienteEndereco;
-
-	public Cliente getClienteEndereco() {
-		return clienteEndereco;
-	}
-
-	public void setClienteEndereco(Cliente clienteEndereco) {
-		this.clienteEndereco = clienteEndereco;
-	}
+	@JsonIgnore	
+	private Cliente cliente;
 
 	public Endereco() {
-		super();
+		
 	}
 
 	public Integer getIdEndereco() {
@@ -63,36 +67,73 @@ public class Endereco {
 		this.idEndereco = idEndereco;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
-	public String getCidade() {
-		return cidade;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public Integer getCep() {
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getLocalidade() {
+		return localidade;
+	}
+
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(Integer cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 
-	public String getRua() {
-		return rua;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
+
+	
+
+	
+	
 
 }

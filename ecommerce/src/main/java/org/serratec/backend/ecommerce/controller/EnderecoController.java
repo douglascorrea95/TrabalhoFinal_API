@@ -3,6 +3,9 @@ package org.serratec.backend.ecommerce.controller;
 import java.util.List;
 
 import org.serratec.backend.ecommerce.DTO.EnderecoDTO;
+import org.serratec.backend.ecommerce.DTO.EnderecoExibicaoDTO;
+import org.serratec.backend.ecommerce.DTO.EnderecoViaCepDTO;
+import org.serratec.backend.ecommerce.exception.EnderecoException;
 import org.serratec.backend.ecommerce.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,32 +27,32 @@ public class EnderecoController {
 	@Autowired
 	EnderecoService enderecoService;
 	
-	
+	@GetMapping("/{cep}")
+	  public ResponseEntity<EnderecoViaCepDTO> buscarCep(@PathVariable String cep) {
+		return ResponseEntity.ok(enderecoService.buscarCep(cep));
+	  }
+
 	@PostMapping("/salvar")
-	public ResponseEntity<String> salvar(@RequestBody EnderecoDTO enderecoDTO) {
-		return ResponseEntity.ok(enderecoService.salvar(enderecoDTO));
-	}
-	
-	@GetMapping("/buscar/{idEndereco}")
-	public ResponseEntity<EnderecoDTO> buscarPorId(@PathVariable Integer idEndereco){
-		return ResponseEntity.ok(enderecoService.buscarPorId(idEndereco));
+	public ResponseEntity<String> salvarEndereco(@RequestBody EnderecoDTO enderecoDTO){
+		return ResponseEntity.ok(enderecoService.salvarEndereco(enderecoDTO));
 	}
 	
 	@GetMapping("/lista")
-	public ResponseEntity<List<EnderecoDTO>> listarTodos(){
+	public ResponseEntity<List<EnderecoExibicaoDTO>> listarTodos(){
 		return ResponseEntity.ok(enderecoService.buscarTodos());
 	}
 	
-	@PutMapping("/atualizar/{idEndereco}")
-	public ResponseEntity<String> atualizar(@PathVariable Integer idEndereco, @RequestBody EnderecoDTO enderecoDTO) {
-		return ResponseEntity.ok(enderecoService.atualizar(idEndereco, enderecoDTO));
+	@GetMapping("/buscar/{idEndereco}")
+	public ResponseEntity<EnderecoExibicaoDTO> buscarPorId(@PathVariable Integer idEndereco) throws EnderecoException{
+		return ResponseEntity.ok(enderecoService.buscarPorId(idEndereco));
 	}
 	
-	@PostMapping("/salvar-lista")
-	public ResponseEntity<Void> salvarLista(@RequestBody List<EnderecoDTO> listaEnderecoDTO){
-		enderecoService.salvarListaEndereco(listaEnderecoDTO);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+	
+	@PutMapping("/atualizar/{idEndereco}")
+	public ResponseEntity<String> atualizar(@PathVariable Integer idEndereco, @RequestBody EnderecoExibicaoDTO enderecoExibicaoDTO) throws EnderecoException {
+		return ResponseEntity.ok(enderecoService.atualizar(idEndereco, enderecoExibicaoDTO));
 	}
+	
 	
 	@DeleteMapping("/{idEndereco}")
 	public ResponseEntity<Void> deletar(@PathVariable Integer idEndereco){

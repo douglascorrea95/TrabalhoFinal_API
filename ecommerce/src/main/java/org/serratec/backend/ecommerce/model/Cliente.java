@@ -52,7 +52,7 @@ public class Cliente {
 	@Column(name = "cliente_tx_telefoneSec")
 	private String telefoneSec;
 	
-	@OneToMany(mappedBy = "clienteEndereco", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.REMOVE)
 	private List<Endereco> listaEndereco;
 
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REMOVE)

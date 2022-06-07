@@ -56,6 +56,8 @@ public class ClienteService {
 		exibicaoCliente.setDataNascimento(cliente.getDataNascimento());
 		exibicaoCliente.setTelefoneCliente(cliente.getTelefoneCliente());
 		exibicaoCliente.setTelefoneSec(cliente.getTelefoneSec());
+		exibicaoCliente.setListaEndereco(cliente.getListaEndereco());
+		exibicaoCliente.setListaPedidos(cliente.getListaPedidos());
 
 		return exibicaoCliente;
 	}
